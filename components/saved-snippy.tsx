@@ -40,6 +40,14 @@ export default function RecentSnippets() {
     alert('Code copied to clipboard')
   }
 
+  if(snippets.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)]">
+        <p className="text-lg text-muted-foreground">No snippets found</p>
+      </div>
+    )
+  }
+
   return (
     <motion.div
       initial={{ x: 50, opacity: 0 }}
