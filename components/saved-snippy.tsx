@@ -99,7 +99,7 @@ export default function RecentSnippets() {
                     ) : (
                       <>
                         <div className="text-sm text-muted-foreground mb-2">Language: {snippet.language}</div>
-                        <Highlight theme={themes.nightOwl} code={snippet.code} language={snippet.language as any}>
+                        <Highlight theme={themes.nightOwl} code={snippet.code} language={snippet.language || 'javascript'}>
                           {({ className, style, tokens, getLineProps, getTokenProps }) => (
                             <pre className={`${className} p-4 rounded overflow-x-auto relative`} style={style}>
                             <Button className="absolute top-1 right-1" size="icon" onClick={handleCopy}>

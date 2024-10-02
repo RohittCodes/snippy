@@ -139,19 +139,19 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
               </DialogContent>
             </Dialog>
           </div>
-          <Highlight theme={themes.nightOwl} code={snippet.code} language={snippet.language as any}>
+          <Highlight theme={themes.nightOwl} code={snippet.code} language={snippet.language || 'javascript'}>
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre className={`${className} p-4 rounded overflow-x-auto relative`} style={style}>
               <Button className="absolute top-1 right-1" size="icon" onClick={handleCopy}>
                 <CopyIcon />
               </Button>
                 {tokens.map((line, i) => {
-                  const { key: lineKey, ...lineProps } = getLineProps({ line, key: i }) as any;
+                  const { key: lineKey, ...lineProps } = getLineProps({ line, key: i });
                   return (
-                    <div key={lineKey} {...lineProps}>
+                    <div key={lineKey as React.Key} {...lineProps}>
                       {line.map((token, key) => {
-                        const { key: tokenKey, ...tokenProps } = getTokenProps({ token, key }) as any;
-                        return <span key={tokenKey} {...tokenProps} />;
+                        const { key: tokenKey, ...tokenProps } = getTokenProps({ token, key })
+                        return <span key={tokenKey as React.Key} {...tokenProps} />;
                       })}
                     </div>
                   );
