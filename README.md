@@ -31,6 +31,12 @@ A youtube video demo of Snippy is available [here](https://youtu.be/Vs88ft7mKx8)
 
 
 Screenshots:
+- Dashboard
+![Screenshot 2024-10-04 140301](https://github.com/user-attachments/assets/c18f6013-22b3-4433-953f-dc92e9dee322)
+- CopilotChat
+![Screenshot 2024-10-04 140453](https://github.com/user-attachments/assets/1e8e5c18-a8ec-46c1-bfcc-b7fffe923e02)
+- Performance Analysis
+![Screenshot 2024-10-04 140511](https://github.com/user-attachments/assets/a8d716a5-793b-433c-ac19-71e264a97baa)
 
 ## Technologies
 - [Next.js](https://nextjs.org)
