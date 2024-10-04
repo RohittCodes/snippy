@@ -17,10 +17,10 @@ export default function CodeSnippetManager() {
     value: snippets,
   })
 
-  const addSnippetWithCheck = (args: { title: string, code: string, language: string }) => {
-    const existingSnippet = snippets.find(snippet => snippet.title === args.title && snippet.code === args.code);
+  const addSnippetWithCheck = (args: { title: string, code: string, language: string, tags: string[] }) => {
+    const existingSnippet = snippets.find(snippet => snippet.title === args.title && snippet.code === args.code && snippet.language === args.language)
     if (!existingSnippet) {
-      addSnippet(args);
+      addSnippet(args)
     }
   };
 
@@ -42,12 +42,18 @@ export default function CodeSnippetManager() {
         name: "language",
         description: "The language of the code snippet",
         type: "string",
+      },
+      {
+        name: "tags",
+        description: "The tags of the code snippet",
+        type: "string[]",
       }
     ],
     handler: (args: {
       title: string,
       code: string,
       language: string
+      tags: string[]
     }) => {
       addSnippetWithCheck(args)
     },
@@ -76,15 +82,21 @@ export default function CodeSnippetManager() {
         name: "language",
         description: "The language of the code snippet",
         type: "string",
+      },
+      {
+        name: "tags",
+        description: "The tags of the code snippet",
+        type: "string[]",
       }
     ],
     handler: (args: {
       id: number,
       title: string,
       code: string,
-      language: string
+      language: string,
+      tags: string[]
     }) => {
-      updateSnippet(args.id, { title: args.title, code: args.code, language: args.language })
+      updateSnippet(args.id, { title: args.title, code: args.code, language: args.language, tags: args.tags })
     }
   })
 
@@ -110,11 +122,11 @@ export default function CodeSnippetManager() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="mx-8 my-4"
+      className="mx-8 my-2"
     >
       <RecentSnippets />
       <CopilotSidebar
-        instructions={"You are assisting the user with managing code snippets. You can create, update, and delete code snippets."}
+        instructions={"You are assisting the user with managing and generating code snippets/complete pseudocodes. You can create, update, and delete these code snippets too. Add relevant tags to make it easier to search for snippets. Provide the snippet in different lines for better readability. Don't use escape characters like \\n, \\t, etc."}
         labels={{
           title: "Snippy - Code Snippet Manager",
           initial: "Hey there! 👋 How can I assist you?"

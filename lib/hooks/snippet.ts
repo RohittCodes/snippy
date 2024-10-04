@@ -6,6 +6,7 @@ interface Snippet {
   title: string
   code: string
   language: string
+  tags: string[]
 }
 
 interface SnippetStore {

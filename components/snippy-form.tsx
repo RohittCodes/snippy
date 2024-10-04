@@ -11,15 +11,17 @@ export default function SnippetForm() {
   const [title, setTitle] = useState('')
   const [code, setCode] = useState('')
   const [language, setLanguage] = useState('javascript')
+  const [tags, setTags] = useState<string[]>([])
   const addSnippet = useSnippetStore((state) => state.addSnippet)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (title && code) {
-      addSnippet({ title, code, language })
+      addSnippet({ title, code, language, tags: [] })
       setTitle('')
       setCode('')
       setLanguage('javascript')
+      setTags([])
     }
   }
 
@@ -53,6 +55,15 @@ export default function SnippetForm() {
             <option value="css">CSS</option>
             <option value="html">HTML</option>
           </select>
+        </div>
+        <div>
+          <Label htmlFor="tags">Tags</Label>
+          <Input
+            id="tags"
+            value={tags.join(',')}
+            onChange={(e) => setTags(e.target.value.split(','))}
+            placeholder="Enter tags separated by commas"
+          />
         </div>
         <div>
           <Label htmlFor="code">Code</Label>

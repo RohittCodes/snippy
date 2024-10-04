@@ -10,6 +10,8 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import SnippetForm from './snippy-form'
+import { ModeToggle } from './ui/mode-toggle';
+import { Button } from './ui/button';
 
 export default function Navbar() {
     return (
@@ -20,22 +22,30 @@ export default function Navbar() {
                     <span className="text-xs text-gray-500"> - code snippets manager</span>
                 </span>
             </Link>
-            <Dialog>
-                <DialogTrigger className="bg-background px-4 py-2 text-primary rounded-md border">
-                    Create Snippet
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>
-                            New Snippet
-                        </DialogTitle>
-                    </DialogHeader>
-                    <DialogDescription>
-                        Create a new snippet, and save it for later.
-                    </DialogDescription>
-                    <SnippetForm />
-                </DialogContent>
-            </Dialog>
+            <div className="flex items-center space-x-2">
+                <a href="https://codemonkey-js.vercel.app/app/problems">
+                    <Button>
+                        Try some code
+                    </Button>
+                </a>
+                <Dialog>
+                    <DialogTrigger className="bg-background px-4 py-1 text-primary rounded-md border">
+                        Create Snippet
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>
+                                New Snippet
+                            </DialogTitle>
+                        </DialogHeader>
+                        <DialogDescription>
+                            Create a new snippet, and save it for later.
+                        </DialogDescription>
+                        <SnippetForm />
+                    </DialogContent>
+                </Dialog>
+                <ModeToggle />
+            </div>
         </nav>
     )
 }
