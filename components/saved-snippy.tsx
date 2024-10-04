@@ -68,8 +68,8 @@ export default function RecentSnippets() {
     return matchesSearch && matchesLanguage && matchesTag
   })
 
-  const uniqueLanguages = Array.from(new Set(snippets.map(snippet => snippet.language)))
-  const uniqueTags = Array.from(new Set(snippets.flatMap(snippet => snippet.tags)))
+  const uniqueLanguages = Array.from(new Set((snippets || []).map(snippet => snippet.language)));
+  const uniqueTags = Array.from(new Set((snippets || []).flatMap(snippet => snippet.tags)));
 
   return (
     <motion.div
