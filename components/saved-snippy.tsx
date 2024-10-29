@@ -38,7 +38,7 @@ export default function RecentSnippets() {
     setEditingId(snippet.id)
     setEditTitle(snippet.title)
     setEditCode(snippet.code)
-    setEditLanguage(snippet.language)
+    setEditLanguage(snippet.language || '')
     setEditTags(snippet.tags || [])
   }
 
@@ -61,15 +61,15 @@ export default function RecentSnippets() {
   }
 
   const filteredSnippets = snippets.filter((snippet) => {
-    const matchesSearch = snippet.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      snippet.code.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = snippet.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      snippet.code?.toLowerCase().includes(searchTerm.toLowerCase())
     const matchesLanguage = selectedLanguage ? snippet.language === selectedLanguage : true
-    const matchesTag = selectedTag ? snippet.tags.includes(selectedTag) : true
+    const matchesTag = selectedTag ? snippet.tags?.includes(selectedTag) : true
     return matchesSearch && matchesLanguage && matchesTag
   })
 
-  const uniqueLanguages = Array.from(new Set((snippets || []).map(snippet => snippet.language)));
-  const uniqueTags = Array.from(new Set((snippets || []).flatMap(snippet => snippet.tags)));
+  const uniqueLanguages = Array.from(new Set((snippets || []).map(snippet => snippet.language || '')));
+  const uniqueTags = Array.from(new Set((snippets || []).flatMap(snippet => snippet.tags || [])));
 
   return (
     <motion.div
@@ -154,9 +154,9 @@ export default function RecentSnippets() {
                 <Card className="flex flex-col h-full">
                   <CardHeader>
                     <CardTitle className="text-lg">{snippet.title}</CardTitle>
-                    <div className="text-sm text-muted-foreground">Language: {snippet.language}</div>
+                    <div className="text-sm text-muted-foreground">Language: {snippet.language || 'N/A'}</div>
                     <div className="flex flex-wrap gap-2 mt-2">
-                      {snippet.tags.map((tag) => (
+                      {(snippet.tags || []).map((tag) => (
                         <Badge key={tag} variant="secondary">
                           <TextIcon className="mr-1 h-3 w-3" />
                           {tag}
@@ -220,10 +220,10 @@ export default function RecentSnippets() {
                   </CardContent>
                   <CardFooter className="flex justify-between items-center pt-4">
                     {editingId === snippet.id ? (
-                      <div className="space-x-2">
-                        <Button onClick={() => handleUpdate(snippet.id)} size="sm">Save</Button>
-                        <Button variant="outline" onClick={handleCancelEdit} size="sm">Cancel</Button>
-                      </div>
+                      <>
+                        <Button onClick={() => handleUpdate(snippet.id)} size="sm" variant="default">Save</Button>
+                        <Button onClick={handleCancelEdit} size="sm" variant="outline">Cancel</Button>
+                      </>
                     ) : (
                       <>
                         <div className="space-x-2">
@@ -246,6 +246,7 @@ export default function RecentSnippets() {
                         </div>
                       </>
                     )}
+                    <Button size="sm" onClick={() => handleCopy(snippet.code)}><CopyIcon className="mr-1" /> Copy</Button>
                   </CardFooter>
                 </Card>
               </motion.div>
